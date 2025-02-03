@@ -1,0 +1,1745 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>형지엘리트</title>
+    <script src="js/jquery-1.12.3.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <style>
+        * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 100vw;
+  overflow-x: hidden; /* 가로 스크롤 비활성화 */
+  overflow-y: auto;   /* 세로 스크롤 활성화 */ 
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+img {
+  max-width:100%;
+}  
+ /* 스크롤바 지우기 */
+ ::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+::-webkit-scrollbar-thumb {
+  background: #888; /* 스크롤바 색상 */
+  border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 스크롤바 호버 색상 */
+}
+/* header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  padding: 0 48px;
+  background-color: #fff;
+  z-index: 10;  
+}
+.headerCover {
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  height: 90px;
+  transition: 0.5s;
+  z-index: 10;
+}
+.headerCover.on {
+  height: 300px;
+  z-index: 70;
+}
+/* main menu */
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+  z-index: 700; 
+}
+.menu > li > a {
+  color: #000;
+}
+.menu > li > a:hover {
+  color: red;
+}
+/* submenu */
+.menuList {
+  position: absolute;
+  top: 100px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.menuList.on {
+  opacity: 1;
+}
+.menuList > li {
+  padding: 10px 0;
+  color: gray;
+  transition: 0.5s;
+}
+.menuList > li:hover {
+  cursor: pointer;
+  color: red;
+}
+.menu > li {
+  font-weight: bolder;
+  padding: 0 50px;
+}
+/* logo */
+.logo {
+  width: 15%;
+  z-index: 700;  
+}
+.topLogo {
+  width: 165px;
+  height: 42px;
+  background-image: url(img/logo_color.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+/* icon */
+.icon {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  width: 15%;
+  height: 100%;  
+  z-index: 1000;
+}
+.icon > li:hover {
+  cursor: pointer;
+}
+.icon > li:nth-child(1) {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+}
+/* multi lang */
+.lang {
+  display: none;
+  position: absolute;
+  top: 90px;
+  left: 0px;
+  padding: 10px 27px;
+  background-color: red;
+  border-radius: 10px;
+  color: #fff;
+  z-index: 500;
+}
+.lang.on {
+  display: block;
+}
+.lang > li:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* share */
+.share {
+  width: 50px;
+  height: 50px;
+  background-image: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  z-index: 1100; 
+}
+.share:hover {
+  color: red;
+}
+/* sandwich */
+.sandwich {
+  width: 50px;
+  height: 60px;
+  background-image: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  z-index: 11000;
+}
+.xi-arrow-down {
+  margin-left: 10px;
+  transition: 0.5s;
+}
+.xi-arrow-down.on {
+  transform: rotate(180deg);
+}
+/* model */
+.menuModal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  z-index: 1000;
+}
+.menuModal.on {
+  display: flex;
+}
+.modal {
+  width: 1000px;
+  height: 500px;
+}
+.modal > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 45px;
+  display: flex;
+  color: #fff;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  font-weight: bolder;
+}
+.xi-close {
+  font-size: 32px;
+  transition: 0.5s;
+}
+.xi-close:hover {
+  cursor: pointer;
+  transform: rotate(360deg);
+}
+.modalMenu {
+  display: flex;
+  position: relative;
+  top: 50px;
+  justify-content: space-between;
+  color: #fff;
+  height: 50%;
+  padding: 0 10px;
+}
+.modalMenu > li > a {
+  font-size: 28px;
+  font-weight: bolder;
+}
+.modalMenu a {
+  color: #fff;
+}
+.modalMenuList {
+  padding: 20px 0;
+}
+.modalMenuList > li {
+  padding: 10px 0;
+  font-size: 20px;
+}
+.modalMenuList > li:hover {
+  cursor: pointer;
+}
+section {
+  position: relative;
+  width: 100%;
+  height: 700px;  
+}
+/* main slide */
+.city01 {
+  opacity: 1;
+  width: 100%;
+  height: 700px;
+  position: absolute;
+  background-image: url(img/city01.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.5s; 
+}
+.city01.on {
+  animation: big 3s both; 
+}
+.city01.on .textMove,
+.city02.on .textMove {
+  position: relative;
+  animation: textMove 3s both; 
+}
+.city02 {
+  opacity: 0;
+  width: 100%;
+  height: 700px;
+  position: absolute;
+  background-image: url(img/city02.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.5s; 
+}
+@keyframes big {
+  from {
+    background-size: 110%;    
+}
+  to {
+    background-size: 130%;   
+}
+}
+@keyframes textMove {
+  from {
+    opacity: 0;
+    transform: translateY(100px);    
+}
+  to {
+    opacity: 1;
+    transform: translateY(0);   
+}
+}
+.city01.on {
+  animation: big 3s both;  
+}
+.city02.on {
+  opacity: 1;
+  animation: big 3s both; 
+}
+.city01 > div,
+.city02 > div {
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  color: #fff;
+  line-height: 80px; 
+}
+.city01 > div > span,
+.city02 > div > span {
+  display: block;
+}
+.title {
+  font-size: 40px;
+  font-weight: bolder;
+}
+.content {
+  font-size: 80px;
+  font-weight: bolder;
+}
+.moveBtn {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  align-items: center;
+  width: 140px;
+  height: 40px;
+  background-color: red;
+  padding: 0 20px;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-weight: bolder;
+}
+.moveBtn {
+  position: relative;
+  z-index: 100;
+}
+.moveBtn.on {
+  display: none;
+}
+.moveBtn a {
+  color: #fff;
+}
+/* TextTyping */
+#TextoutBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 500px;     
+}  
+  .text   {
+    position: relative;   
+}  
+  .text span {
+    display: block;
+    color: rgba(128, 128, 128, 0.3);
+    font-size: 50px;
+    font-weight: bolder;    
+    overflow: hidden;
+} 
+  .text p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    color: rgb(255, 0, 0);
+    font-size: 50px;
+    font-weight: bolder;
+    white-space: pre;
+    overflow: hidden;    
+}  
+/* MainContents*/
+#our_business {
+  margin: auto;
+  width:1300px;   
+}
+#our_business h2 {
+  font:3.8rem  "Poppins", serif;  
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+#our_business h2+ p {
+  font-weight:bold;
+}
+#title {
+  display:flex; 
+  justify-content: space-between; 
+  align-items: center;
+  height: 200px;
+  margin:auto; 
+  margin-bottom:70px; 
+}
+#btn button {
+  width:50px; 
+  height:50px; 
+  border-radius:50%; 
+  margin:3px;
+  background:transparent; 
+  border: 1px solid #333;
+}
+#btn button:hover {
+  background:black; 
+  color:white;
+}
+/* 슬라이드 */
+#contentsSlide {
+  width:3900px; 
+  display:flex; 
+  position:relative; 
+  margin:auto; 
+  left:-1300px; 
+}
+#contentsSlide section {
+  width: 1300px; 
+  display: flex;
+  opacity:0.3; 
+  transform:scale(0.6);
+  transition: all 1s;
+}
+#contentsSlide section.active {
+  opacity: 1; 
+  transform: scale(1);
+}
+#contentsSlide section> img {
+  width:450px; 
+}
+#contentsSlide section> div {
+  flex:1; 
+  padding:70px 0 0 70px;
+}
+#contentsSlide section>div img{
+  width:150px; 
+  margin-bottom:25px;
+}
+#contentsSlide section h4 {
+  margin-bottom:15px;
+}
+#contentsSlide section h3 {
+  font-size:1.7rem; 
+  margin-bottom: 25px;
+} 
+#contentsSlide section h3+ p {
+  width:300px; 
+  font-size:0.9rem; 
+  margin-bottom:60px;
+}
+#contentsSlide section p+ div {
+  width:300px;
+}
+#contentsSlide section span {
+  display:inline-block; 
+  padding:10px 12px; 
+  background:#eee; 
+  border-radius:50px; 
+  margin:10px 3px;
+  font-weight:bold; 
+  font-size:0.8rem; 
+  color:#333;
+} 
+ /* 동영상과 배경 변경  */
+ #bgChange.hide {
+    opacity:0;
+ }
+ #bgChange {
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+    height: auto;
+    background-color:#000;
+    color:#eee;
+    transition: 1.5s;
+    opacity: 1;
+    margin-top: 20px;   
+  }  
+  #bgChange.on {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+  }  
+  section:nth-of-type(4) > div {
+    /* border: 1px solid black; */
+  }  
+  .sec4Text > p:nth-child(1) {
+    font-size: 51px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+  }  
+  .sec4Text > p:nth-child(2) {
+    margin-bottom: 20px;
+  }  
+  .sec4Text > p:last-child {
+    margin-bottom: 50px;
+  }  
+  .sec4Text > p:not(:first-child) {
+    font-size: 21px;
+    font-weight: 500;
+  }  
+/*동영상*/
+#movie {
+	 margin:auto;
+}
+#movie video {
+    width:900px; 
+    height:400px; 
+    display:block; 
+    margin:auto;
+    transition:all 2s; 
+}
+#movie video.big {
+    animation: bb 3s 0.5s both;
+}
+@keyframes bb {
+	from {width:1200; height:1000px;}
+	to   {width:1400px;  height:1200px;}
+}
+/* card contents */
+/* 스코롤 시점 태그 시작 */
+#spacer {
+  height: 2430px; /* 탑메뉴에서 #our_brand까지의 높이 */
+  background: #f0f0f0;
+}
+/* 끝 */
+#our_brand {
+  width: 100%;
+  height: auto; /* 높이 자동 조정 */
+  background: black;
+  color: white;
+  padding: 100px 0;
+  font-family: Poppins, sans-serif; 
+}
+#our_brand{
+  width: 100%;
+  height: 1400px;
+  margin-top: 0;
+}
+#our_brand div {
+  max-width: 1500px;
+  display: flex;
+  justify-content: space-between; /* 카드 간 간격 유지 */
+  align-items: flex-start; /* 상단 정렬 */
+  /* flex-wrap: nowrap; 가로로 한 줄 배치 */
+  margin: 0 auto; /* 중앙 정렬 */ 
+}
+/* active 클래스 시작 */
+#our_brand div.active section {
+  animation: roll 1s both;
+}
+#our_brand div.active section:nth-child(2) {
+  animation-delay: 0.5s;
+}
+#our_brand div.active section:nth-child(3) {
+  animation-delay: 1s;
+}
+/* active 클래스 끝 */
+#our_brand h2 {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  font-size: 4.5rem;
+  line-height: 130%;
+  text-align: left;
+}
+#our_brand div section {
+  flex: 1;
+  background: rgb(255, 94, 36);
+  border-radius: 15px;
+  padding: 120px 30px 50px;
+  margin: 20px; /* 카드 간격 */
+  text-align: center; 
+  transition: transform 0.3s;
+}
+#our_brand div section:hover {
+  transform: scale(1.05); /* 호버 시 확대 효과 */
+}
+#our_brand div.active section {
+  animation: roll 1s both;
+}
+#our_brand div.active section:nth-child(2) {
+  animation-delay: 0.5s;
+}
+#our_brand div.active section:nth-child(3) {
+  animation-delay: 1s;
+}
+@keyframes roll {
+  from {
+      transform: rotateY(0);
+  }
+  to {
+      transform: rotateY(360deg);
+  }
+}
+#our_brand div img {
+  display: block;
+  width: 100px;
+  height: auto;
+  margin: 0 auto 30px;
+  transition: transform 1s;
+}
+#our_brand div.active section img {
+  animation: updown 1s both infinite alternate;
+}
+#our_brand div.active section:nth-child(2) img {
+  animation-delay: 0.5s;
+}
+#our_brand div.active section:nth-child(3) img {
+  animation-delay: 1s;
+}
+@keyframes updown {
+  from {
+      transform: translateY(-10px);
+      opacity: 0.5;
+  }
+  to {
+      transform: translateY(10px);
+      opacity: 1;
+  }
+}
+#our_brand h3 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+#our_brand p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0;
+}
+/* Field info */
+#field{
+    margin-top: 100px;
+    width: 100%;
+    font-family: Arial, sans-serif;   
+    display: flex;
+    justify-content: flex-start; /* 부모 요소에서 좌측 정렬 */
+    align-items: flex-start; /* 자식 요소를 위쪽으로 정렬 */
+    flex-direction: column;
+    background-color: white;
+    padding-left: 10%; /* 좌측 마진 대신 내부 여백 사용 */  
+}
+#field h2  {
+    width: 70%; /* 전체 너비의 70%를 사용 */
+    text-align: left; /* 좌측 정렬 */
+    margin-bottom:30px;
+    font-size: 4rem;
+    font-weight: bolder;
+}
+#field p{
+    width: 70%; /* 전체 너비의 70%를 사용 */
+    text-align: left; /* 좌측 정렬 */
+    font-size: 2rem;
+    font-weight: bolder;
+    margin-bottom: 50px;
+}
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4열 그리드 레이아웃*/
+    gap: 30px;
+    max-width: 1500px;
+    width: 100%;
+    padding: 20px;
+  }
+  .gallery-item {
+    height: 590px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }  
+   .gallery-item img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+  }
+  .caption_top{
+    font-size: 1rem;   
+    padding: 10px;
+    font-weight: bolder;
+  }
+  .caption_bottom{
+    font-size: 1rem;    
+    padding: 10px;
+  }
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+  .gallery-item .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .gallery-item:hover .caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* partner logo */
+  #our_partner{ 
+    margin-top: 100px;   
+    font-family:Poppins;
+    text-align: center;  
+    position: relative;
+}
+#our_partner h2 {
+    font-size:3rem; 
+    text-transform: uppercase; 
+    margin-bottom: 20px; 
+    font-weight: bolder; 
+}
+#our_partner p {
+    font-size:1.5rem; 
+    text-align: center;
+    font-weight: bolder;
+}
+#partner_slide_1, #partner_slide_2 {
+    margin: 0 auto; /* 중앙 정렬 */
+    height: 180px; /* 부모 요소 높이 일관성을 유지 */
+}
+#partner_slide_1 {
+    margin-top: 80px; /* 적당한 간격 조정 */
+    height: 180px;
+    display: flex;
+    position: relative;
+    left: -500px;    
+    left:-500px;   
+    object-fit: cover;
+    object-position: center;
+}
+#partner_slide_1 img {
+    display: block;
+    width:250px;
+    height: 150px;   
+}
+#partner_slide_2 { 
+    margin-top: 10px; /* 위 슬라이드와 가까워지도록 간격 줄임 */
+    display: flex;
+    position: relative;   
+    left:-250px;
+    object-fit: cover; 
+    object-position: center;  
+}
+#partner_slide_2 img {
+    display: block;
+    width:250px;
+    height: 150px;
+}
+/* ESG */
+#esg {
+  top: 200px;
+  width: 100%;
+  height: 1200px; /* 부모 요소의 높이를 명확히 설정 */
+  position: relative; /* 자식 요소의 % 값 처리를 위해 relative 설정 */
+  overflow: hidden;
+  margin: 0 auto;  
+}
+#esg h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bolder;
+}
+#esg h3 {
+  font-size: 1rem;
+  margin-bottom: 50px;
+  text-align: center;
+}
+#esg1st, #esg2nd, #esg3rd {
+  position: absolute;
+  width: 800px;
+  height: 400px;
+  margin-top: 50px;
+  top: 150px; /* 초기 상태에서 화면 아래로 정렬 */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.8s ease-in-out, z-index 0.8s ease-in-out;
+  z-index: 1;
+}
+#esg1st.active, #esg2nd.active, #esg3rd.active {
+  top: 150px; /* 활성화된 섹션은 화면 중앙으로 */
+  z-index: 10;
+}
+#esg1st img, #esg2nd img, #esg3rd img {
+  width: 800px;
+  height: 400px;
+  top:150px;
+  border-radius: 10px;
+  border: 1px solid black;
+  object-fit: cover;
+  filter: brightness(70%);
+}
+#esg1st div, #esg2nd div, #esg3rd div {
+  position: absolute;
+  bottom: 10%;
+  left: 30%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;  
+  z-index: 20;
+}
+footer{
+  width: 100%; 
+  height: 600px; 
+  background-image: linear-gradient(225deg, #A93F11, #181818);
+  position: relative; 
+  color: white;  
+}  
+.fobox{
+  width: 75%; 
+  height: 100%; 
+  position: relative; 
+  align-content: center; 
+  left: 50%; 
+  transform: translateX(-50%);}
+.fotxt{
+  width: 100%; 
+  height: 40px; 
+  display: flex; 
+  position: relative;}
+.fotxt>div{
+  width: 15%;}
+.fam{
+  position: absolute; 
+  right: 0; 
+  height: 35px; 
+  bottom: 20px; 
+  text-align: center; 
+  align-content: center; 
+  border-top: 0.1px solid rgba(255, 255, 255, 0.333); 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.637);}
+.fost{
+  width: 100%; 
+  height: 0.3px; 
+  background-color: rgba(255, 255, 255, 0.185); 
+  margin-bottom: 30px; 
+  margin-top: 10px;}
+.foad{
+  width: 100%; 
+  height: 50px; 
+  color: rgba(255, 255, 255, 0.562); 
+  line-height: 30px;}
+/* footer end */ 
+@media screen and (max-width: 1024px) {
+  /* 헤더 조정 */
+  header {
+    padding: 0 20px;
+  }
+  .menu > li {
+    padding: 0 20px;
+  }
+  .icon {
+    width: 20%;
+  }
+
+  /* 메인 슬라이드 조정 */
+  section {
+    height: 500px;
+  }
+  .city01, .city02 {
+    height: 500px;
+  }
+  .city01 > div, .city02 > div {
+    top: 20%;
+    right: 10%;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .content {
+    font-size: 60px;
+  }
+
+  /* 메인 콘텐츠 조정 */
+  #our_business {
+    width: 90%;
+  }
+  #contentsSlide {
+    width: 2700px;
+    left: -900px;
+  }
+  #contentsSlide section {
+    width: 900px;
+  }
+  #contentsSlide section > img {
+    width: 300px;
+  }
+  #contentsSlide section > div {
+    padding: 50px 0 0 50px;
+  }
+  #contentsSlide section h3 {
+    font-size: 1.5rem;
+  }
+
+  /* 동영상 섹션 조정 */
+  #bgChange {
+    padding: 50px;
+  }
+  .sec4Text > p:nth-child(1) {
+    font-size: 40px;
+  }
+  .sec4Text > p:not(:first-child) {
+    font-size: 18px;
+  }
+  #movie video {
+    width: 700px;
+    height: 300px;
+  }
+
+  /* 카드 컨텐츠 조정 */
+  #our_brand h2 {
+    font-size: 3.5rem;
+  }
+  #our_brand div section {
+    padding: 80px 20px 30px;
+  }
+  #our_brand h3 {
+    font-size: 2rem;
+  }
+
+  /* 제품 필드 조정 */
+  #field h2 {
+    font-size: 3rem;
+  }
+  #field p {
+    font-size: 1.5rem;
+  }
+  .gallery {
+    grid-template-columns: repeat(2, 1fr); /* 2열로 변경 */
+  }
+
+  /* 파트너 로고 조정 */
+  #partner_slide_1, #partner_slide_2 {
+    height: 120px;
+  }
+  #partner_slide_1 img, #partner_slide_2 img {
+    width: 180px;
+    height: 100px;
+  }
+
+  /* ESG 섹션 조정 */
+  #esg h2 {
+    font-size: 2.5rem;
+  }
+  #esg1st, #esg2nd, #esg3rd {
+    width: 600px;
+    height: 300px;
+  }
+  #esg1st img, #esg2nd img, #esg3rd img {
+    width: 600px;
+    height: 300px;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* 헤더 조정 */
+  header {
+    padding: 0 10px;
+    height: 70px;
+  }
+  .headerCover {
+    height: 70px;
+  }
+  .headerCover.on {
+    height: 250px;
+  }
+  .menu {
+    display: none; /* 모바일에서는 메뉴 숨김 */
+  }
+  .icon {
+    width: 30%;
+  }
+  .sandwich {
+    display: block; /* 햄버거 메뉴 표시 */
+  }
+
+  /* 메인 슬라이드 조정 */
+  section {
+    height: 300px;
+  }
+  .city01, .city02 {
+    height: 300px;
+  }
+  .city01 > div, .city02 > div {
+    top: 15%;
+    right: 5%;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .content {
+    font-size: 40px;
+  }
+  .moveBtn {
+    width: 120px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  /* 텍스트 타이핑 조정 */
+  #TextoutBox {
+    height: 300px;
+  }
+  .text span, .text p {
+    font-size: 30px;
+  }
+
+  /* 메인 콘텐츠 조정 */
+  #our_business {
+    width: 100%;
+  }
+  #contentsSlide {
+    width: 1800px;
+    left: -600px;
+  }
+  #contentsSlide section {
+    width: 600px;
+    flex-direction: column;
+    align-items: center;
+  }
+  #contentsSlide section > img {
+    width: 200px;
+  }
+  #contentsSlide section > div {
+    padding: 20px;
+    text-align: center;
+  }
+  #contentsSlide section h3 {
+    font-size: 1.2rem;
+  }
+  #contentsSlide section p {
+    width: 100%;
+  }
+
+  /* 동영상 섹션 조정 */
+  #bgChange {
+    padding: 20px;
+  }
+  .sec4Text > p:nth-child(1) {
+    font-size: 30px;
+  }
+  .sec4Text > p:not(:first-child) {
+    font-size: 16px;
+  }
+  #movie video {
+    width: 100%;
+    height: 200px;
+  }
+
+  /* 카드 컨텐츠 조정 */
+  #our_brand h2 {
+    font-size: 2.5rem;
+  }
+  #our_brand div {
+    flex-direction: column;
+    align-items: center;
+  }
+  #our_brand div section {
+    width: 80%;
+    padding: 50px 20px 20px;
+    margin: 10px 0;
+  }
+  #our_brand h3 {
+    font-size: 1.8rem;
+  }
+
+  /* 제품 필드 조정 */
+  #field h2 {
+    font-size: 2rem;
+  }
+  #field p {
+    font-size: 1.2rem;
+  }
+  .gallery {
+    grid-template-columns: repeat(1, 1fr); /* 1열로 변경 */
+  }
+
+  /* 파트너 로고 조정 */
+  #partner_slide_1, #partner_slide_2 {
+    height: 80px;
+  }
+  #partner_slide_1 img, #partner_slide_2 img {
+    width: 120px;
+    height: 60px;
+  }
+
+  /* ESG 섹션 조정 */
+  #esg h2 {
+    font-size: 2rem;
+  }
+  #esg1st, #esg2nd, #esg3rd {
+    width: 90%;
+    height: 200px;
+  }
+  #esg1st img, #esg2nd img, #esg3rd img {
+    width: 100%;
+    height: 200px;
+  }
+}
+    </style>
+</head>
+  <body>
+<!-- 헤더 메뉴 및 서브메뉴 시작 -->
+    <div class="headerCover"></div>
+    <header>
+      <div class="logo">
+        <div class="topLogo"></div>
+      </div>
+      <ul class="menu">
+        <li>
+          <a href="#">회사소개</a>
+          <ul class="menuList">
+            <li>인사말</li>
+            <li>사회공헌</li>
+            <li>연혁</li>
+            <li>윤리경영</li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">사업분야</a>
+          <ul class="menuList">
+            <li>엘리트 학생복</li>
+            <li>윌비 플레이</li>
+            <li>윌비 워크웨어</li>
+            <li>자회사</li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">IR</a>
+          <ul class="menuList">
+            <li>전자공고</li>
+            <li>대차대조표</li>
+            <li>손익계산서</li>
+            <li>보도자료</li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+          <ul class="menuList">
+            <li>오시는길</li>
+            <li>고객문의</li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="icon">
+        <li><span>KOR</span><span class="xi-arrow-down"></span></li>
+        <ul class="lang">
+          <li>ENG</li>
+          <li>JPN</li>
+          <li>CHN</li>
+        </ul>        
+        <li class="share">
+          <img src="images/share.png" alt="share">
+        </li>
+        <li class="sandwich">
+          <img src="images/menu.png" alt="sandwich">
+        </li>
+      </ul>
+</header>
+<!-- 헤더 밍 서브메뉴 끝 -->
+<!-- 탑 슬라이드 시작 -->
+<section>
+      <div class="city01 on" id="slide">
+        <div>
+          <span class="title textMove">진심을 전하는 기업1</span
+          ><span class="content textMove">HYUNGJI ELITE</span>
+          <div class="moveBtn textMove">
+            <span><a href="https://www.google.com/">View More</a></span
+            ><span>→</span>
+          </div>
+        </div>
+      </div>
+      <div class="city02" id="slide">
+        <div>
+          <span class="title textMove">No1.Life Style Creation Company</span
+          ><span class="content textMove">HYUNGJI ELITE</span>
+        </div>
+      </div>
+    </section>
+<!-- 탑 슬라이더 끝 -->
+<!-- 텍스트 시작 -->
+ <div id=TextoutBox>
+    <div class="text">
+      <span>혁신과 열정으로 글로벌 패션</span>
+      <p id="p1">혁신과 열정으로 글로벌 패션</p>
+    </div>
+    <div class="text">
+      <span>미래를 선도합니다.</span>
+      <p id="p2">미래를 선도합니다.</p>
+    </div>    
+  </div>
+<!-- 텍스트 끝 -->
+<!-- 메인 컨텐츠 시작-->
+ <div id="our_business">        
+    <section id="title" >
+        <div>
+            <h2>our business</h2>
+            <p>
+                형지엘리트는 다양한 분야에서 품질과 스타일을<br>검비한 다양한 솔루션을 제공합니다.
+            </p>
+        </div>
+        <div id="btn">
+            <button type="button" class="material-symbols-sharp">arrow_back</button>
+            <button type="button" class="material-symbols-sharp">arrow_forward</button>
+        </div>   
+    </section>
+    <div id="contentsSlide">
+        <section>
+            <img src="img/business01.jpg" alt="더 편한 교복 엘리트">
+            <div>
+                <img src="img/business_logo01.svg" alt="비즈니스 로고">
+                <h4>엘리트 학생복</h4>
+                <h3>55년 교복 산업을 선도해온<br>대한민국 NO.1 엘리트</h3>
+                <p>
+                    더 편한 교복은 물론 체육복, 학생 용품까지!<br>학생용품 토탈 솔루션을 제공합니다.
+                </p>
+                <div>
+                    <span>#초등학교</span><span>#국제학교</span><span>#중학교</span>
+                    <span>#고등학교</span><span>#K교복</span><span>#상해엘리트</span>
+                </div>
+            </div>
+        </section>
+        <section class="active">
+            <img src="img/business03.jpg" alt="더 편한 교복 엘리트">
+            <div>
+                <img src="img/business_logo01.svg" alt="비즈니스 로고">
+                <h4>월비 플레이</h4>
+                <h3>NOT TO DELAY<br>YOUR PLAY</h3>
+                <p>
+                    즐기고 열광하는 사람들을 응원합니다!
+                </p>
+                <div>
+                    <span>#국내구단</span><span>#해외구단</span><span>#방송</span>
+                    <span>#E스포츠</span><span>#굿즈</span><span>#판매</span>
+                </div>
+            </div>
+        </section>
+        <section>
+            <img src="img/business02.jpg" alt="더 편한 교복 엘리트">
+            <div>
+                <img src="img/business_logo01.svg" alt="비즈니스 로고">
+                <h4>월비 워크웨어</h4>
+                <h3>EXPERIENCE THE MORE</h3>
+                <p>
+                    워크웨어, 그 이상을 경험하라!
+                </p>
+                <div>
+                    <span>#MASTER</span><span>#ENERGY</span>
+                    <span>#RECOVERY</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- 메인 컨텐츠 끝-->
+<!-- 동영상 시작 -->
+ <section id="bgChange" class="hide">
+    <div>
+      <div class="sec4Text">
+        <p>No1. LIFESTYLE<br />CREATION COMPANY</p>
+        <p>
+          우리는 안정과 지속성장을 추구하는 기업, 형지엘리트입니다.<br>
+          고객에게 행복과 기쁨을 주는 혁신적인 제품과 서비스를 창출하며<br>
+          보다 편리하고 세련된 라이프스타일을 만들어 나갑니다.
+        </p>
+        <p>영상 속에 담긴 형지엘리트의 브랜드 가치와 비전을 경험해보세요.</p>
+      </div>
+      <div id='movie'>
+        <video autoplay loop muted controls>
+            <source src="https://www.hyungji-elite.com/inc/img/main/vision_video01.mp4" type="video/mp4">          
+        </video>
+      </div>
+    </div>
+</section>
+<!-- 카드 컨텐츠 시작 -->
+<div id="our_brand">
+    <section>
+        <h2>
+            OUR BRAND VALUE<br>
+            & VISION
+        </h2>
+        <div>
+            <section>
+                <img src="images/icon_1.png" alt="customer">
+                <h3>customer</h3>
+                <p>형지엘리트는 고객을 최우선으로 생각합니다.<br>
+                   언제나 행복과 기쁨을 주는 제품과 시비스를<br>
+                   드리고자 노력하며, 형지엘리트 제품을 통해 즐거운 삶이<br>
+                   될 수 있도록 최선을 다합니다.</p>
+            </section>
+            <section>
+                <img src="images/icon_2.png" alt="global">
+                <h3>GLOBAL</h3>
+                <p>형지엘리트는 국내시장을 넘어 글로벌 시장으로<br>
+                    나아가고 있습니다. 중국의 종합패션그룹과<br> 함께 합자법인을
+                    설립하여 중국교복시장에<br> 진출하는 등 글로벌 기업으로
+                    성장하고 있습니다.
+                </p>
+            </section>    
+            <section>
+                <img src="images/icon_3.png" alt="innovation">
+                <h3>INNOVATION</h3>
+                <p>형지엘리트는 신뢰와 품질을 바탕으로 합니다.<br>
+                    더 나은 품질의 제품을 드리는 것, 신뢰를 중요시 하는 것<br>
+                    나아가 변화의 시대에 끊임없이 도전하고 있습니다.
+        
+                </p>
+            </section>
+        </div>
+    </section>
+</div>
+<!-- 카드 컨텐츠 끝 -->
+<!-- 재품필드 시작 -->
+ <div id="field">
+ <h2>OUR SPECIAL FIELD</h2>
+ <p>형지엘리트는 폭넓고 다채로운 분야에서<br>고객의 다양한 라이프스타일 지원을 위해 끊임없이 도전합니다.</p>
+  <section class="gallery">
+    <section class="gallery-item">
+      <img src="filed_img/service_img05.jpg" alt="Image 05">
+      <div class="caption_top">각 분야별 클라이언트의 니즈 반영</div>
+      <div class="caption_bottom">현장조사 및 샘플제작으로 다양한 산업분야의<br>특성에 따른 맞춤형형 워크웨어 생산</div>
+    </section>
+    <section class="gallery-item">
+      <img src="filed_img/service_img06.jpg" alt="Image 06">
+      <div class="caption_top">학생용품 토탈 솔루션</div>
+      <div class="caption_bottom">교복매장에서 이너티, 스타킹, 벨트 등 학생<br>용품까지 원스톱으로 구매 가능</div>
+    </section>
+    <section class="gallery-item">
+      <img src="filed_img/service_img07.jpg" alt="Image 07">
+      <div class="caption_top">근무환경에 맞춘 라인업</div>
+      <div class="caption_bottom">유니폼, 단체복, 작업복, 일상복까지 다양한<br>근무환경에 맞춘 라인업 구성</div>
+    </section>
+    <section class="gallery-item">
+      <img src="filed_img/service_img08.jpg" alt="Image 08">
+      <div class="caption_top">스포츠 구단 스폰 및 매치데이 개죄</div>
+      <div class="caption_bottom">스포츠 구단 메인 스폰 및 매치데이 행사 개최</div>
+    </section>
+  </section>
+</div> 
+<!--제품필드 끝  -->
+<!-- 파트너 로고 시작 -->
+ <div id="our_partner">
+    <h2>OUR PARTNERS</h2>
+    <p>형지엘리트는 파트너사와 다양한 분야에서 함께 성장하며,<br>신뢰와 혁신을 바탕으로 함께 미래를 만들어갑니다.</p>
+    <section id="partner_slide_1">
+        <img src="partner_img/1.png" alt="partner1">
+        <img src="partner_img/2.png" alt="partner2">
+        <img src="partner_img/3.png" alt="partner3">
+        <img src="partner_img/4.png" alt="partner4">
+        <img src="partner_img/5.png" alt="partner5">
+        <img src="partner_img/6.png" alt="partner6">
+        <img src="partner_img/7.png" alt="partner7">
+        <img src="partner_img/8.png" alt="partner8">
+        <img src="partner_img/9.png" alt="partner9">
+        <img src="partner_img/10.png" alt="partner10">
+    </section>
+    <section id="partner_slide_2">
+        <img src="partner_img/11.png" alt="partner11">
+        <img src="partner_img/12.png" alt="partner12">
+        <img src="partner_img/13.png" alt="partner13">
+        <img src="partner_img/14.png" alt="partner14">
+        <img src="partner_img/15.png" alt="partner15">
+        <img src="partner_img/16.png" alt="partner16">
+        <img src="partner_img/17.png" alt="partner17">
+        <img src="partner_img/18.png" alt="partner18">
+        <img src="partner_img/19.png" alt="partner19">
+        <img src="partner_img/20.png" alt="partner20">
+    </section>
+</div>
+<!-- 파트너 로고 끝 -->
+<!-- ESG 전략 시작 -->
+<div id="esg">
+    <h2>TRUST PROMISE</h2>
+    <h3>형지엘리트는 지속가능경영을 위해<br>ESG 전략을 수립하여 실천해 나가고 있습니다.</h3>
+   <section id="esg1st">    
+    <img src="esg_img/esg_img01.jpg" alt="esg01">
+        <div>
+        <h2>Environment</h2>
+        <h3>환경경영과 안전,보건 경영을 통해 기업의 건강<br>사회의 건강, 그리고 지구의 건강을 지킵니다.</h3>
+        </div>     
+    </section>   
+    <section id="esg2nd">
+        <img src="esg_img/esg_img02.jpg" alt="esg02">
+        <div>        
+        <h2>Social</h2>
+        <h3>사회의 일원으로서 고객, 임직원,<br>지역사회에 대한 시회적 책임을 다합니다.</h3>
+        </div> 
+    </section>         
+    <section id="esg3rd">
+        <img src="esg_img/esg_img03.jpg" alt="esg03">
+        <div>         
+        <h2>Governance</h2>
+        <h3>책임경영과 윤라경영을 통해<br>주주 및 이해관계자의 권익 보호에 최선을 다합니다.</h3>
+        </div>           
+    </section>
+</div>
+<!-- ESG 전략 끝 -->
+<!-- 푸터 시작 -->
+<footer> 
+  <div class="fobox">
+    <div class="fotxt">
+        <div><h3>개인정보처리방침</h3></div>
+        <div><h3>이용약관</h3></div>
+    </div>
+    <div class="foad">
+        <div>ADDRESS: 이 홈페이지는 학습용으로 개설한 것으로 실제거래 할 수는 없습니다.</div>
+        <div>TEL: 010-5454-7570 | EMAIL: 2010top@naver.com</div><br>
+        <div>copyright (c) Lee Kunwoo all rights reserved.</div>
+    </div>
+</div>
+
+</footer>
+<!-- 푸터 끝 -->
+ <!-- 모달 박스 시작 -->
+    <div class="menuModal">
+      <div class="modal">
+        <div>
+          <div>SITE MAP</div>
+          <div class="xi-close"></div>
+        </div>
+        <ul class="modalMenu">
+          <li>
+            <a href="#">회사소개</a>
+            <ul class="modalMenuList">
+              <li>인사말</li>
+              <li>사회공헌</li>
+              <li>연혁</li>
+              <li>윤리경영</li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">사업분야</a>
+            <ul class="modalMenuList">
+              <li>엘리트 학생복</li>
+              <li>윌비 플레이</li>
+              <li>윌비 워크웨어</li>
+              <li>자회사</li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">IR</a>
+            <ul class="modalMenuList">
+              <li>전자공고</li>
+              <li>대차대조표</li>
+              <li>손익계산서</li>
+              <li>보도자료</li>
+            </ul>
+          </li>
+            <a href="#">Contact</a>
+            <ul class="modalMenuList">
+              <li>오시는길</li>
+              <li>고객문의</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+<!-- 모달 박스 끝 -->
+ <!-- 스크립트 부분 -->
+  <script>
+let headerCover = document.querySelector(".headerCover");
+let header = document.querySelector("header");
+let menuList = document.querySelectorAll(".menuList");
+let xiArrowDown = document.querySelector(".icon > li:nth-child(1)");
+let xiArrowDownIcon = document.querySelector(".xi-arrow-down");
+let lang = document.querySelector(".lang");
+let xiBars = document.querySelector(".sandwich");
+let menuModal = document.querySelector(".menuModal");
+let xiClose = document.querySelector(".xi-close");
+
+header.addEventListener("mouseenter", function () {
+  headerCover.classList.add("on");
+  menuList.forEach(function (item) {
+    item.classList.add("on");
+  });
+});
+
+headerCover.addEventListener("mouseleave", function () {
+  headerCover.classList.remove("on");
+  menuList.forEach(function (item) {
+    item.classList.remove("on");
+  });
+});
+
+xiArrowDown.addEventListener("click", function () {
+  xiArrowDownIcon.classList.toggle("on");
+  lang.classList.toggle("on");
+});
+
+xiBars.addEventListener("click", function () {
+  menuModal.classList.add("on");
+});
+
+xiClose.addEventListener("click", function () {
+  menuModal.classList.remove("on");
+});
+
+let slide = document.querySelectorAll("#slide");
+let city01 = document.querySelector(".city01");
+let city02 = document.querySelector(".city02");
+let count = 0;
+let moveBtn = document.querySelector(".moveBtn");
+
+setInterval(() => {
+  if (count == 0) {
+    city01.classList.add("on");
+    city02.classList.remove("on");
+    moveBtn.classList.remove("on");
+    count++;
+  } else if (count == 1) {
+    city01.classList.remove("on");
+    city02.classList.add("on");
+    moveBtn.classList.add("on");
+    count = 0;
+  }
+}, 3000);
+
+document.addEventListener("scroll", () => {
+    let scrollY = window.scrollY;
+    let p1 = document.getElementById("p1");
+    let p2 = document.getElementById("p2");
+    let p3 = document.getElementById("p3");
+  
+    let calWidth = (scroll, start, end) => {
+      if (scroll < start) return 0;
+      if (scroll > end) return 100;
+      return ((scroll - start) / (end - start)) * 100;
+    };
+  
+    p1.style.width = `${calWidth(scrollY, 482, 595)}%`;
+  
+    p2.style.width = `${calWidth(scrollY, 596, 709)}%`;
+  
+    p3.style.width = `${calWidth(scrollY, 710, 832)}%`;
+  });
+  
+  console.log(window.scrollY); 
+  
+  $(document).ready( ()=> {
+    //왼쪽방향 화살표 클릭
+    const no = $('#contentsSlide').find('.active').index();
+    let active = true;
+    $("#btn button").eq(0).click( ()=>{
+        if( active ){
+            active= false;
+            $('#contentsSlide').css('transition', 'left 1s');
+            $('#contentsSlide').css('left', 0);
+            $('#contentsSlide section').eq(no - 1).addClass('active').siblings().removeClass('active');
+            setTimeout(callback_1, 1000);
+        }
+    });
+    const callback_1 = () => {
+        $('#contentsSlide').css('transition', 'none');
+        $('#contentsSlide').css('left', '-1300px');
+        $('#contentsSlide').prepend($('#contentsSlide').children().last());
+        active = true;
+    }
+
+    //오른쪽방향 화살표 클릭
+    $("#btn button").eq(1).click(() => {
+        if (active) {
+            active = false;
+            $('#contentsSlide').css('transition', 'left 1s');
+            $('#contentsSlide').css('left', '-2600px');
+            $('#contentsSlide section').eq(no + 1).addClass('active').siblings().removeClass('active');
+            setTimeout(callback_2, 1000);
+        }
+    });
+    const callback_2 = () => {
+        $('#contentsSlide').css('transition', 'none');
+        $('#contentsSlide').css('left', '-1300px');
+        $('#contentsSlide').append($('#contentsSlide').children().first());
+        active = true;
+    }    
+
+});//............js end
+
+$(document).ready(function(){
+    
+    let hide = true;
+    let top_1 = $(window).scrollTop();
+	const movieTop = Math.trunc( $('#movie').offset().top ) - 300; //2207	
+    $(window).on('wheel' , e => {
+        const top_2 = $(window).scrollTop();
+        const top_3 = top_2 - top_1 ;
+        //스크롤을 내릴때
+        if( $(window).scrollTop()> 100 && top_3> 0 && hide) {
+            $('#bgChange').removeClass('hide'); 
+        }
+        if(  $(window).scrollTop()> 300 && top_3> 0 && hide ) {
+            $('#movie video').addClass('big');
+            hide = false;
+        }
+        //스크롤을 올릴때
+        else if ( $(window).scrollTop()<= movieTop && top_3 < 0 && hide=== false ) {
+            $('#movie video').removeClass('big'); 
+            $('#bgChange').addClass('hide');			
+            hide= true;
+        }
+        top_1 = top_2;
+    });
+
+
+
+
+});//................. js end
+
+document.addEventListener('DOMContentLoaded', () => {
+    const our_brand = document.getElementById('our_brand');
+    let y1 = window.scrollY;
+
+    // wheel 이벤트 처리
+    window.addEventListener('wheel', () => {
+        const y2 = window.scrollY;
+        const y3 = y2 - y1;
+
+        if (y3 > 0 && y2 > 200) {
+            our_brand.querySelector('div').classList.add('active');
+        } else if (y3 < 0) {
+            console.log('위로 스크롤 중');
+        }
+
+        y1 = y2;
+    });
+
+    // scroll 이벤트 처리
+    window.addEventListener('scroll', () => {
+        const ourBrandTop = our_brand.getBoundingClientRect().top;
+        const viewportHeight = window.innerHeight;
+
+        if (ourBrandTop <= viewportHeight && ourBrandTop >= 0) {
+            our_brand.querySelector('div').classList.add('active');
+        } else {
+            our_brand.querySelector('div').classList.remove('active');
+        }
+    });
+});
+
+
+$(document).ready( ()=> {
+    //오른쪽방향 자동이동
+    const toRight = () => {
+        $('#partner_slide_1').css('transition' , '0.2s');
+        $('#partner_slide_1').css('left' , '+=10px');          
+        $('#partner_slide_1').position().left >= -250 ? call_2() : null;         
+    }
+    const call_2 = ()=> {
+        $('#partner_slide_1').css('transition' , 'none');
+        $('#partner_slide_1').css('left' , '-500px');
+        $('#partner_slide_1').prepend( $('#partner_slide_1').children().last() );
+    }
+    setInterval( toRight , 10);
+
+    //왼쪽방향 자동이동
+    const toLeft = () => {
+        $('#partner_slide_2').css('transition' , '0.2s');
+        $('#partner_slide_2').css('left' , '-=10px');    
+        $('#partner_slide_2').position().left <= -500 ? call_3() : null;         
+    }
+    const call_3 = ()=> {
+        $('#partner_slide_2').css('transition' , 'none');
+        $('#partner_slide_2').css('left' , '-250px');
+        $('#partner_slide_2').append( $('#partner_slide_2').children().first() );
+    }
+    setInterval( toLeft , 10);
+
+
+});// js end....................
+
+const sections = [
+        document.querySelector('#esg1st'),
+        document.querySelector('#esg2nd'),
+        document.querySelector('#esg3rd')
+    ];
+    const esgContainer = document.querySelector('#esg');
+    let currentIndex = 0; // 현재 활성화된 섹션 인덱스
+
+    // 초기 섹션 상태 설정
+    sections.forEach(section => {
+        section.style.top = '150'; // 모든 섹션을 초기 상태에서 화면 아래에 위치
+    });
+
+    // Intersection Observer로 #esg 감지
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // #esg 영역에 도달하면 첫 번째 섹션 활성화
+                    sections[currentIndex].classList.add('active');
+                    document.addEventListener('wheel', handleScroll);
+                } else {
+                    // #esg 영역을 벗어나면 모든 이벤트 초기화
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.removeEventListener('wheel', handleScroll);
+                }
+            });
+        },
+        { threshold: 0.5 } // #esg 영역의 50%가 화면에 보이면 실행
+    );
+
+    observer.observe(esgContainer);
+
+    // 스크롤 이벤트 처리
+    function handleScroll(e) {
+        if (e.deltaY > 0) {
+            // 아래로 스크롤
+            if (currentIndex < sections.length - 1) {
+                sections[currentIndex].classList.remove('active');
+                currentIndex++;
+                sections[currentIndex].classList.add('active');
+            }
+        } else if (e.deltaY < 0) {
+            // 위로 스크롤
+            if (currentIndex > 0) {
+                sections[currentIndex].classList.remove('active');
+                currentIndex--;
+                sections[currentIndex].classList.add('active');
+            }
+        }
+    }
+
+  </script>
+</body>
+</html>
